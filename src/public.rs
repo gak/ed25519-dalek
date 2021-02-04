@@ -335,7 +335,7 @@ impl Verifier<ed25519::Signature> for PublicKey {
     {
         let signature = InternalSignature::try_from(signature)?;
 
-        let mut h: Sha512 = Sha512::new();
+        let mut h: Blake2b = Blake2b::new();
         let R: EdwardsPoint;
         let k: Scalar;
         let minus_A: EdwardsPoint = -self.1;
