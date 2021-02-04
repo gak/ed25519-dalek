@@ -34,6 +34,7 @@ use crate::constants::*;
 use crate::errors::*;
 use crate::secret::*;
 use crate::signature::*;
+use blake2::Blake2b;
 
 /// An ed25519 public key.
 #[derive(Copy, Clone, Default, Eq, PartialEq)]
@@ -54,7 +55,7 @@ impl AsRef<[u8]> for PublicKey {
 impl<'a> From<&'a SecretKey> for PublicKey {
     /// Derive this public key from its corresponding `SecretKey`.
     fn from(secret_key: &SecretKey) -> PublicKey {
-        let mut h: Sha512 = Sha512::new();
+        let mut h: Blake2b = Blake2b::new();
         let mut hash: [u8; 64] = [0u8; 64];
         let mut digest: [u8; 32] = [0u8; 32];
 
