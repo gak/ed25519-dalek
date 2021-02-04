@@ -21,6 +21,7 @@ use curve25519_dalek::scalar::Scalar;
 use rand::{CryptoRng, RngCore};
 
 use sha2::Sha512;
+use blake2::Blake2b;
 
 #[cfg(feature = "serde")]
 use serde::de::Error as SerdeError;
@@ -263,7 +264,7 @@ impl<'a> From<&'a SecretKey> for ExpandedSecretKey {
     /// # }
     /// ```
     fn from(secret_key: &'a SecretKey) -> ExpandedSecretKey {
-        let mut h: Sha512 = Sha512::default();
+        let mut h: Blake2b = Blake2b::default();
         let mut hash:  [u8; 64] = [0u8; 64];
         let mut lower: [u8; 32] = [0u8; 32];
         let mut upper: [u8; 32] = [0u8; 32];
@@ -388,7 +389,7 @@ impl ExpandedSecretKey {
     /// Sign a message with this `ExpandedSecretKey`.
     #[allow(non_snake_case)]
     pub fn sign(&self, message: &[u8], public_key: &PublicKey) -> ed25519::Signature {
-        let mut h: Sha512 = Sha512::new();
+        let mut h: Blake2b = Blake2b::new();
         let R: CompressedEdwardsY;
         let r: Scalar;
         let s: Scalar;
@@ -400,7 +401,7 @@ impl ExpandedSecretKey {
         r = Scalar::from_hash(h);
         R = (&r * &constants::ED25519_BASEPOINT_TABLE).compress();
 
-        h = Sha512::new();
+        h = Blake2b::new();
         h.update(R.as_bytes());
         h.update(public_key.as_bytes());
         h.update(&message);
