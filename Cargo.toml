@@ -5,12 +5,12 @@ edition = "2018"
 authors = ["isis lovecruft <isis@patternsinthevoid.net>"]
 readme = "README.md"
 license = "BSD-3-Clause"
-repository = "https://github.com/dalek-cryptography/ed25519-dalek"
+repository = "https://github.com/gak/ed25519-dalek/tree/blake2b"
 homepage = "https://dalek.rs"
 documentation = "https://docs.rs/ed25519-dalek"
 keywords = ["cryptography", "ed25519", "curve25519", "signature", "ECC"]
 categories = ["cryptography", "no-std"]
-description = "A fork of ed25519-dalek specifically for the feeless crate, supporting blake2b in some functions."
+description = "A fork of ed25519-dalek specifically for the feeless (Nano cryptocurrency) crate, supporting blake2b in some functions."
 exclude = [ ".gitignore", "TESTVECTORS", "res/*" ]
 
 [badges]
